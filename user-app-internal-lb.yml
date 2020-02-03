@@ -1,0 +1,14 @@
+--- # Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-app-ilb
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+spec:
+  type: LoadBalancer
+  selector:
+    app: user-app
+  ports:
+    - protocol: TCP
+      port: 80

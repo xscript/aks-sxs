@@ -1,0 +1,11 @@
+--- # Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-app-vip
+spec:
+  selector:
+    app: user-app
+  ports:
+    - protocol: TCP
+      port: 80

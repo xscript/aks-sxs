@@ -1,0 +1,20 @@
+--- # App
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-app
+spec:
+  selector:
+    matchLabels:
+      app: user-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: user-app
+    spec:
+      containers:
+      - name: user-app
+        image: nginx:1.8
+        ports:
+        - containerPort: 80
