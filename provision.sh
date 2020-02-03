@@ -33,7 +33,13 @@ az aks install-cli --install-location ~/kubectl
 ## Deploy user app w/ services
 kubectl apply -f user-app.yml --kubeconfig user.kubeconfig
 kubectl apply -f user-app-cluster-ip.yml --kubeconfig user.kubeconfig
-kubectl apply -f user-app-ilb.yml --kubeconfig user.kubeconfig
+kubectl apply -f user-app-internal-lb.yml --kubeconfig user.kubeconfig
 
 ## Deploy system app w/o services
 kubectl apply -f system-app.yml --kubeconfig system.kubeconfig
+
+## Deploy IngressController in system AKS
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.28.0/deploy/static/mandatory.yaml --kubeconfig system.kubeconfig
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.28.0/deploy/static/provider/cloud-generic.yaml --kubeconfig system.kubeconfig
+
+
