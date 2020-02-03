@@ -15,13 +15,13 @@ az configure --defaults vnet=kevinzha-sxs-vnet
 az network vnet subnet create -n kevinzha-sxs-subnet-1 --vnet-name kevinzha-sxs-vnet --address-prefixes 10.0.0.0/16 --verbose
 
 ## System AKS service CIDR -> 10.1.0.0/16
-az aks create --name kevinzha-sxs-aks-system --network-plugin azure --dns-service-ip 10.1.0.10 --docker-bridge-address 172.17.0.1/16 --service-cidr 10.1.0.0/16 --vnet-subnet-id "/subscriptions/685ba005-af8d-4b04-8f16-a7bf38b2eb5a/resourceGroups/kevinzha-aks-sxs/providers/Microsoft.Network/virtualNetworks/kevinzha-sxs-vnet/subnets/kevinzha-sxs-subnet-1" --generate-ssh-keys --verbose
+az aks create --name kevinzha-sxs-aks-system --network-plugin azure --dns-service-ip 10.1.0.10 --docker-bridge-address 172.17.0.1/16 --service-cidr 10.1.0.0/16 --vnet-subnet-id "/subscriptions/685ba005-af8d-4b04-8f16-a7bf38b2eb5a/resourceGroups/kevinzha-aks-sxs/providers/Microsoft.Network/virtualNetworks/kevinzha-sxs-vnet/subnets/kevinzha-sxs-subnet-1" --generate-ssh-keys --load-balancer-sku basic --verbose
 
 ## User AKS Subnet -> 10.2.0.0/16
 az network vnet subnet create -n kevinzha-sxs-subnet-2 --vnet-name kevinzha-sxs-vnet --address-prefixes 10.2.0.0/16 --verbose
 
 ## User AKS service CIDR -> 10.3.0.0/16
-az aks create --name kevinzha-sxs-aks-user --network-plugin azure --dns-service-ip 10.3.0.10 --docker-bridge-address 172.17.0.1/16 --service-cidr 10.3.0.0/16 --vnet-subnet-id "/subscriptions/685ba005-af8d-4b04-8f16-a7bf38b2eb5a/resourceGroups/kevinzha-aks-sxs/providers/Microsoft.Network/virtualNetworks/kevinzha-sxs-vnet/subnets/kevinzha-sxs-subnet-2" --generate-ssh-keys --verbose
+az aks create --name kevinzha-sxs-aks-user --network-plugin azure --dns-service-ip 10.3.0.10 --docker-bridge-address 172.17.0.1/16 --service-cidr 10.3.0.0/16 --vnet-subnet-id "/subscriptions/685ba005-af8d-4b04-8f16-a7bf38b2eb5a/resourceGroups/kevinzha-aks-sxs/providers/Microsoft.Network/virtualNetworks/kevinzha-sxs-vnet/subnets/kevinzha-sxs-subnet-2" --generate-ssh-keys --load-balancer-sku basic --verbose
 
 ## Get System and User AKS kubeconfig files
 az aks get-credentials -n kevinzha-sxs-aks-system -f - > system.kubeconfig
