@@ -1,0 +1,15 @@
+--- # Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-app-udr
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "kevinzha-svcsubnet"
+spec:
+  type: LoadBalancer
+  selector:
+    app: user-app
+  ports:
+    - protocol: TCP
+      port: 80
