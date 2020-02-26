@@ -128,6 +128,8 @@ kubectl apply -f user-app.yml --kubeconfig aks-udr.kubeconfig
 kubectl apply -f user-app-udr.yml --kubeconfig aks-udr.kubeconfig
 
 ## Add DNAT rule in Azure Firewall
+
+USERAPP_IP=$(kubectl get service user-app-udr --kubeconfig aks-udr.kubeconfig --output=jsonpath='{.status.loadBalancer.ingress[0].ip}')
 az network firewall nat-rule create --collection-name "${AKS_NAME}-ingress" \
     --destination-addresses $FWPUBLIC_IP \
     --destination-ports 80 \
@@ -139,7 +141,7 @@ az network firewall nat-rule create --collection-name "${AKS_NAME}-ingress" \
     --translated-port 80 \
     --action Dnat \
     --priority 100 \
-    --translated-address <INSERT IP OF K8s SERVICE>
+    --translated-address $USERAPP_IP
 
 
 
